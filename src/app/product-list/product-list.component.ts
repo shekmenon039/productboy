@@ -9,6 +9,10 @@ export class ProductListComponent implements OnInit {
 
   constructor() { }
   pageTitle = "Product List";
+  imageWidth = 50;
+  imageMargin = 2;
+  showImage :boolean = false;
+
   products: any[] = [
     {
       "productId": 2,
@@ -16,9 +20,9 @@ export class ProductListComponent implements OnInit {
       "productCode": "GDN-0023",
       "releaseDate": "March 18,2016",
       "description": "15 gallon capacity",
-      "price": 32.99,
+      "price": 45.50,
       "starRating": 4.2,
-      "imageUrl": "https://openclipart.org"
+      "imageUrl": 'https://openclipart.org/image/300px/svg_to_png/58471/garden-cart.png'
     },
     {
       "productId": 5,
@@ -26,11 +30,15 @@ export class ProductListComponent implements OnInit {
       "productCode": "TBX-0048",
       "releaseDate": "May 21,2016",
       "description": "Curved claw steel hammer",
-      "price": 8.9,
+      "price": 15.50,
       "starRating": 4.9,
-      "imageUrl": "https://openclipart.org"
+      "imageUrl": "https://openclipart.org/image/300px/svg_to_png/14358/mystica-Hammer.png"
     }];
   ngOnInit() {
+  }
+
+  toggleImage(): void{
+    this.showImage = !this.showImage;
   }
 
 }
