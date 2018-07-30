@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from './product';
 
 @Component({
   selector: 'app-product-list',
@@ -7,13 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
   pageTitle = "Product List";
   imageWidth = 50;
   imageMargin = 2;
-  showImage :boolean = false;
+  showImage: boolean = false;
+  filteredProducts: Product[];
 
-  products: any[] = [
+  _listFilter: string;
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+
+  products: Product[] = [
     {
       "productId": 2,
       "productName": "Garden Cart",
@@ -34,10 +46,23 @@ export class ProductListComponent implements OnInit {
       "starRating": 4.9,
       "imageUrl": "https://openclipart.org/image/300px/svg_to_png/14358/mystica-Hammer.png"
     }];
-  ngOnInit() {
+
+  constructor() {
+    this.filteredProducts = this.products;
   }
 
-  toggleImage(): void{
+  ngOnInit() {
+    console.log('In OnInit');
+  }
+
+  performFilter(filterBy: string): Product[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter((product: Product) =>
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+
+  }
+
+  toggleImage(): void {
     this.showImage = !this.showImage;
   }
 
